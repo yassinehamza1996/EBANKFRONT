@@ -1,0 +1,61 @@
+<div class="mt-5 mb-3 text-white">
+  <p>EBANK</p>
+</div>
+<div class="container mt-2">
+  <div class="card col-md-6 offset-3 shadow">
+    <div class="card-header text-center text-primary">
+      <b>CREATION D'UN NOUVEAU COMPTE</b>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="addAccountFormGroup" (ngSubmit)="addAccount()">
+
+        <div class="mb-3">
+          <label>MONTANT INITIAL</label>
+          <input type="number" formControlName="amount" class="form-control">
+          <span class="text-danger" *ngIf="addAccountFormGroup.controls['amount'].touched
+                && addAccountFormGroup.controls['amount'].errors
+                && addAccountFormGroup.controls['amount'].errors!['required']">
+                Le montant initial est requis
+          </span>
+        </div>
+
+        <div class="mb-3">
+          <label>Taux du découvert (%)</label>
+          <input type="number" formControlName="overDraft" class="form-control">
+          <span class="text-danger" *ngIf="addAccountFormGroup.controls['overDraft'].touched
+                && addAccountFormGroup.controls['overDraft'].errors
+                && addAccountFormGroup.controls['overDraft'].errors!['required']">
+                Le taux de découvert est requis
+          </span>
+        </div>
+
+        <div class="mb-3">
+          <label>Taux d'intérêt (%)</label>
+          <input type="number" formControlName="interestRate" class="form-control">
+          <span class="text-danger" *ngIf="addAccountFormGroup.controls['interestRate'].touched
+                && addAccountFormGroup.controls['interestRate'].errors
+                && addAccountFormGroup.controls['interestRate'].errors!['required']">
+                Le taux d'intérêt  est requis
+          </span>
+        </div>
+
+        <div class="mb-3">
+          <label>Type</label>
+          <select formControlName="type" class="form-control">
+            <option>{{currentAccount}}</option>
+            <option>{{savingAccount}}</option>
+          </select>
+          <span class="text-danger" *ngIf="addAccountFormGroup.controls['type'].touched
+              && addAccountFormGroup.controls['type'].errors
+              && addAccountFormGroup.controls['type'].errors!['required']">
+              Le type du compte est requis
+          </span>
+        </div>
+
+        <button [disabled]="!addAccountFormGroup.valid" class="btn btn-primary">
+          Enregistrer
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+.bg-orange{
+  background-color: #ff0c0c;
+}
+
+
+.bg-body-tertiary {
+  background-color: #01203f !important;
+ 
+}
+a{
+color: white !important;
+}
+a:hover{
+color: #eb0000 !important;
+}

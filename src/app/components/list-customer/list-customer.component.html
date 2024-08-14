@@ -1,0 +1,61 @@
+<div class="mt-5 mb-5">
+  <p class="text-white">E-BANK</p>
+</div>
+<div class="container mt-3">
+  <ng-container *ngIf="customers | async as listCustomers; else failureOrLading">
+    <div class="card shadow">
+      <div class="card-header text-primary text-center">
+        <b>Liste des clients</b>
+      </div>
+      <div class="card-body">
+        <div *ngIf="searchFormGroup">
+          <form [formGroup]="searchFormGroup" (ngSubmit)="searchCustomers()">
+            <div class="input-group">
+              <label class="input-group-text">Keyword :</label>
+              <input type="text" formControlName="keyword" class="form-control">
+              <button class="btn btn-primary">
+                <i class="bi bi-search">Recherche</i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <table class="table">
+          <thead>
+          <tr class="text-primary">
+            <th style="text-align:center">ID</th>
+            <th style="text-align:center">PRENOM(S)</th>
+            <th style="text-align:center">NOM(S)</th>
+            <th style="text-align:center">CIN</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let customer of customers | async">
+            <td style="text-align:center" class="bg-light">{{customer.id}}</td>
+            <td style="text-align:center" >{{customer.firstname}}</td>
+            <td style="text-align:center" class="bg-light">{{customer.name}}</td>
+            <td style="text-align:center">{{customer.cin}}</td>
+            <td style="text-align:center" class="bg-light">
+              <button class="btn btn-primary" (click)="gotoDetailsCustomerComponent(customer)"><i class="bi bi-input-cursor-text"></i></button>
+            </td>
+          </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #failureOrLading>
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-danger">
+        {{errorMessage}}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+      </div>
+      Chargement ...
+    </ng-template>
+  </ng-template>
+</div>

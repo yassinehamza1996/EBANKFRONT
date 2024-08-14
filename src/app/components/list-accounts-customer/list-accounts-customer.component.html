@@ -1,0 +1,55 @@
+<div class="mt-5 mb-5">
+  <p class="text-white">E-BANK</p>
+</div>
+<div class="container mt-3">
+  <ng-container *ngIf="accounts | async as listAccounts; else failureOrLading">
+    <div class="card shadow">
+      <div class="card-header text-primary text-center">
+        <b>LISTE DES COMPTES BANCAIRES</b>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+          <tr class="text-primary">
+            <th style="text-align:center">ID</th>
+            <th style="text-align:center">SOLDE</th>
+            <th style="text-align:center">INTERETS</th>
+            <th style="text-align:center">DECOUVERT</th>
+            <th style="text-align:center">STATUS</th>
+            <th style="text-align:center">CREATION</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let account of accounts | async">
+            <td style="text-align:center" class="bg-light">{{account.id}}</td>
+            <td style="text-align:center" >{{account.balance | number : '1.2-2'}}</td>
+            <td style="text-align:center" class="bg-light">{{account.interestRate}}</td>
+            <td style="text-align:center">{{account.overDraft}}</td>
+            <td style="text-align:center" class="bg-light">{{account.status}}</td>
+            <td style="text-align:center">{{account.createdAt | date : 'dd-MM-yyyy:HH-mm-ss'}}</td>
+            <td style="text-align:center" class="bg-light">
+              <button class="btn btn-primary" (click)="updateBankAccountStatus(account)"><i class="bi bi-input-cursor-text"></i></button>
+            </td>
+          </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #failureOrLading>
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-danger">
+        {{errorMessage}}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+      </div>
+
+      Chargement ...
+    </ng-template>
+  </ng-template>
+</div>

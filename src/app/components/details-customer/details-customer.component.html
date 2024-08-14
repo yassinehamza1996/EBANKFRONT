@@ -1,0 +1,76 @@
+<div class="mt-5 mb-5">
+  <p class="text-white">EBANK</p>
+</div>
+<div class="container mt-2">
+  <ng-container *ngIf="customer | async as c; else failureOrLading">
+  <div class="card col-md-12  shadow">
+    <div class="card-header text-center text-primary">
+      <b>PROFILE DU CLIENT</b>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="mb-3">
+            <label><b>IDENTIFIANT : </b></label>{{ c?.id}}
+          </div>
+          <div class="mb-3">
+            <label><b>CIN : </b></label>{{ c?.cin}}
+          </div>
+          <div class="mb-3">
+            <label><b>PRENOM(s) : </b></label>{{ c?.firstname}}
+          </div>
+          <div class="mb-3">
+            <label><b>NOM(s) : </b></label>{{ c?.name}}
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="mb-3">
+            <label><b>DATE DA NAISSANCE : </b></label>{{ c?.dateOfBirth}}
+          </div>
+          <div class="mb-3">
+            <label><b>LIEUX DE NAISSANCE : </b></label>{{ c?.placeOfBirth}}
+          </div>
+          <div class="mb-3">
+            <label><b>NATIONALITE : </b></label>{{ c?.nationality}}
+          </div>
+          <div class="mb-3">
+            <label><b>SEXE : </b></label>{{ c?.sex}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-md-1">
+          <button class="btn btn-sm btn-primary" (click)="gotoListCustomerComponent()">retour</button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-sm btn-primary" (click)="gotoAddAccountComponent(c)">Ajouter un comptes</button>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-sm btn-primary" (click)="gotoListAccountsCustomerComponent(c)">Liste des comptes</button>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-sm btn-primary" (click)="gotoUpdateCustomerComponent(c)">modifier ce client</button>
+        </div>
+        <div class="col-md-2 text-end">
+          <button class="btn btn-sm btn-primary" (click)="deleteCustomer(c)">Supprimer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </ng-container>
+  <ng-template #failureOrLading>
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-danger">
+        {{errorMessage}}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+      </div>
+      Chargement en cours, veuillez patientez ...
+    </ng-template>
+  </ng-template>
+</div>
